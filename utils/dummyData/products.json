@@ -1,0 +1,57 @@
+[
+  {
+    "isCourseOrBook":"Book",
+    "id": "B001",
+    "productName": "The Catcher in the Rye",
+    "authorName": "J.D. Salinger",
+    "publisher": "Little, Brown and Company",
+    "price": 9.99,
+    "pages": 200,
+    "category": "Fiction",
+    "dateOfPublished": "1951-07-16",
+    "language": "English",
+    "imageCover": "https://dummyimage.com/200x300/000/fff.jpg",
+    "slug": "the-catcher-in-the-rye",
+    "ratingsAverage": 4.5,
+    "sold": 1000,
+    "productDescription": "The Catcher in the Rye is a novel by J. D. Salinger, partially published in serial form in 1945–1946 and as a novel in 1951. It was originally intended for adults but is often read by adolescents for its themes of angst, alienation, and as a critique on superficiality in society.",
+    "aboutAuthor": "Jerome David Salinger was an American writer best known for his novel 'The Catcher in the Rye'. He was born in New York City in 1919 and died in 2010. Salinger was known for his reclusive lifestyle, and after the success of 'The Catcher in the Rye', he seldom gave interviews or made public appearances.",
+    "tableOfContent": [
+      "Chapter 1: The Catcher in the Rye",
+      "Chapter 2: Holden Caulfield",
+      "Chapter 3: Phoebe Caulfield",
+      "Chapter 4: Allie Caulfield",
+      "Chapter 5: Jane Gallagher",
+      "Chapter 6: Mr. Antolini",
+      "Chapter 7: The End"
+    ],
+    "sampleOfChapter": "It was the first time I'd ever been in a car with a girl. It felt good, though, to have her sitting next to me. It made me feel sort of grown-up and all. She had this little kid's book with her, and she gave it to me to look at. The book was something about Eskimos. I looked through it. It was all about Eskimos. I said, 'I like this book,' and I handed it back to her and said, 'Read me something, why don't you?'"
+  },
+  {
+    "id": "B002",
+    "productName": "To Kill a Mockingbird",
+    "author": "Harper Lee",
+    "publisher": "HarperCollins",
+    "price": 12.99,
+    "category": "Fiction",
+    "publication_date": "1960-07-11",
+    "language": "English",
+    "imageCover": "https://dummyimage.com/200x300/000/fff.jpg",
+    "slug": "to-kill-a-mockingbird",
+    "ratingsAverage": 4.8,
+    "sold": 1500,
+    "productDescription": "To Kill a Mockingbird is a novel by Harper Lee published in 1960. It is a classic of modern American literature and won the Pulitzer Prize. The novel is renowned for its warmth and humor, despite dealing with serious issues of rape and racial inequality.",
+    "aboutAuthor": "Nelle Harper Lee was an American novelist best known for her novel 'To Kill a Mockingbird'. She was born in Monroeville, Alabama in 1926 and died in 2016. Lee was a recluse for much of her life, rarely giving interviews or making public appearances.",
+    "tableOfContent": [
+      "Chapter 1: The Radleys",
+      "Chapter 2: The First Day of School",
+      "Chapter 3: Walter Cunningham",
+      "Chapter 4: The Trial",
+      "Chapter 5: Boo Radley",
+      "Chapter 6: The Halloween Party",
+      "Chapter 7: The End"
+    ],
+    "sampleOfChapter": "When he was nearly thirteen, my brother Jem got his arm badly broken at the elbow. When it healed, and Jem's fears of never being able"
+  }
+
+]
