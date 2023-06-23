@@ -20,6 +20,7 @@ const { webhookCheckout } = require("./services/orderService");
 const groupRoute = require('./routes/groupRoute')
 const recommRoute = require('./routes/recommRoute')
 const reviewRoute = require('./routes/reviewRoute')
+const baseurl = require('./routes/baseUSL')
 
 // Connect with db
 dbConnection();
@@ -67,6 +68,7 @@ mountRoutes(app);
 app.use('/groups',groupRoute)
 app.use("/recommendationsystem", recommRoute);
 app.use('/review',reviewRoute)
+app.use('/',baseurl)
 
 app.all("*", (req, res, next) => {
   next(new ApiError(`Can't find this route: ${req.originalUrl}`, 400));

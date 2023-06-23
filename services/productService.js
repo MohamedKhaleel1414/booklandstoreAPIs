@@ -16,12 +16,11 @@ exports.uploadProductImages =uploadMixOfImages([
 ]);
 
 exports.resizeProductImages = asyncHandler(async (req, res, next) => {
-  // console.log(req.files);
   //1- Image processing for imageCover
-  if (req.files.imageCover) {
+  if (req.body.imageCover) {
     const imageCoverFileName = `product-${uuidv4()}-${Date.now()}-cover.jpeg`;
 
-    await sharp(req.files.imageCover[0].buffer)
+    await sharp(req.body.imageCover[0].buffer)
       .resize(2000, 1333)
       .toFormat('jpeg')
       .jpeg({ quality: 95 })
