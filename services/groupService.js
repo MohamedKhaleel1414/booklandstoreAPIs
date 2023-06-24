@@ -7,25 +7,45 @@ function addGroup(req, res) {
     .save()
     .then((data) => {
       if (data) {
-        console.log(data);
-        res.send("done");
+        res.status(200).send(data);
       }
     })
     .catch((err) => {
       console.log(err);
-      res.status(403).send("error!");
+      res.status(403).send("An error occured while creating group");
     });
 }
 
-function addUserstoGroup(req,res){ // the body must have group_id and user_id who want to join the group 
+// the body must have group_id and user_id who want to join the group 
+function addUserstoGroup(req,res){ 
   Group.findById(req.body.group_id).then((data)=>{
     if(data){
       data.users_id.push(req.body.user_id)
-      res.send(data)
+      data.save()
+      res.status(200).send(data)
     }
   }).catch((err)=>{
     console.log(err)
+    res.status(404).send("Group not found");
   })
 }
 
-module.exports = {addGroup,addUserstoGroup}
+async function deleteGroup(req,res){
+  let group = await Group.findByIdAndDelete(req.body.groupId)
+  if(group){
+    res.status(201).send("Group deleted successfully")
+  }else{
+    res.status(404).send("Group not found")
+  }
+}
+
+async function getAllGroups(req,res){
+  let groups = await Group.find({})
+  if(groups){
+    res.status(201).send(groups)
+  }else{
+    res.status(404).send("No groups to show")
+  }
+}
+
+module.exports = {addGroup,addUserstoGroup,deleteGroup,getAllGroups}

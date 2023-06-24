@@ -30,7 +30,8 @@ const reviewSchema = new mongoose.Schema(
     },
     isCommentOrReply:{
       type:String,
-      enum:["Reply","Comment"]
+      enum:["Reply","Comment"],
+      required:[true, "Review must have a type either comment or reply"]
     }
   },
   { timestamps: true }

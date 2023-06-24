@@ -10,7 +10,7 @@ async function recommendations(req, res) {
   let productMatch = [];
   let responseProduct = [];
 
-  await groupModel.findById(req.body.id).then((data) => {
+  await groupModel.findById(req.body.groupId).then((data) => {
     if (data) {
       usersID = [...data.users_id];
       groupField.push(data.field);

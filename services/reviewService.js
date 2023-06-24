@@ -35,12 +35,12 @@ const showReplies = async (req,res) => {
   }
 }
 
-// Create Comment: // Send in body(user,product,cooment)
+// Create Comment: // Send in body(user,product,cooment,isCommentOrReply)
 const addComment = (req,res) => {
   let newComment = new Review(req.body)
   newComment.save().then((data)=>{
     if(data){
-      res.status(200).send("Comment added successfully")
+      res.status(200).send(data)
     }
   }).catch((err)=>{
     console.log(err)
@@ -48,19 +48,25 @@ const addComment = (req,res) => {
   })
 } 
 
-// Add Reply on a comment: // Send in body(commentId,reply_description,reply_user,reply_product)
+// Add Reply on a comment: // Send in body(commentId,reply_description,reply_user,reply_product,type)
 // The three reply properties are similar to the comment properties because reply is a comment nested in another comment
 const addReply = async (req,res) => {
   let comment = await Review.findById(req.body.commentId)
   if(comment){
     let reply = {
-      cooment:reply_description,
-      user:reply_user,
-      product:reply_product,
+      cooment:req.body.reply_description,
+      user:req.body.reply_user,
+      product:req.body.reply_product,
+      isCommentOrReply:req.body.type
     }
-    comment.reply.push(reply)
-    comment.save()
-    res.status(200).send("Reply added successfully")
+    let replyadded = new Review(reply)
+    replyadded.save().then((data)=>{
+      comment.reply.push(data._id)
+      res.status(200).send(data)
+    }).catch((err)=>{
+      console.log(err)
+      res.status(400).send("An error occured while sending reply")
+    })
   }else{
     res.status(404).send("Comment not found")
   }
@@ -71,7 +77,7 @@ const addReply = async (req,res) => {
 const updateComment = async (req,res) => {
   let comment = await Review.findByIdAndUpdate(req.body.commentId,{"cooment":req.body.comment_description})
   if(comment){
-    res.status(201).send("Comment updated successfully")
+    res.status(201).send(comment)
   }else{
     res.status(404).send("Comment not found")
   }
@@ -82,7 +88,7 @@ const updateComment = async (req,res) => {
 const updateReply = async (req,res) => {
   let reply = await Review.findByIdAndUpdate(req.body.replyId,{"cooment":req.body.reply_description})
   if(reply){
-    res.status(201).send("Reply updated successfully")
+    res.status(201).send(reply)
   }else{
     res.status(404).send("Reply not found")
   }
