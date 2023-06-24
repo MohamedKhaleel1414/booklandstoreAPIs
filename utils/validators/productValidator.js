@@ -12,7 +12,7 @@ exports.createProductValidator = [
       req.body.slug = slugify(val);
       return true;
     }),
-    check('authortName')
+    check('authorName')
     .notEmpty()
     .withMessage('Product description is required')
       .custom((val, { req }) => {

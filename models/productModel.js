@@ -27,7 +27,7 @@ const productSchema = new mongoose.Schema(
       trim: true,
     },//
     dateOfPublished: {
-      type: Number,
+      type: Date,
       required: true,
       trim: true,
     },//
@@ -59,10 +59,10 @@ const productSchema = new mongoose.Schema(
       required: [true, "Product price is required"],
       trim: true,
     },//
-    tableOfContent: {
+    tableOfContent: [{
       type: String,
       required: [true],
-    },//
+    }],//
     sampleOfChapter: {
       type: String,
       required: [true],

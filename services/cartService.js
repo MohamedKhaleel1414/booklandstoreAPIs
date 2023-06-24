@@ -21,12 +21,12 @@ exports.addProductToCart = asyncHandler(async (req, res, next) => {
   const product = await Product.findById(productId);
 
   // 1) Get Cart for logged user
-  let cart = await Cart.findOne({ user: req.user._id });
+  let cart = await Cart.findOne({ user: req.body.userId });
 
   if (!cart) {
     // create cart fot logged user with product
     cart = await Cart.create({
-      user: req.user._id,
+      user: req.body.userId,
       cartItems: [{ product: productId, price: product.price }],
     });
   } else {
