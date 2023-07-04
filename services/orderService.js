@@ -44,6 +44,7 @@ exports.createCashOrder = asyncHandler(async (req, res, next) => {
       console.log(err)
     })
   })
+  const usr = await User.findByIdAndUpdate(req.body.userId,{bought_products:productsID});
   // 4) After creating order, decrement product quantity, increment product sold
   if (order) {
     const bulkOption = cart.cartItems.map((item) => ({

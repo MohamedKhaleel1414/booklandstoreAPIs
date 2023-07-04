@@ -1,8 +1,8 @@
-const asyncHandler = require('express-async-handler');
-const ApiError = require('../utils/apiError');
+const asyncHandler = require("express-async-handler");
+const ApiError = require("../utils/apiError");
 
-const Product = require('../models/productModel');
-const Cart = require('../models/cartModel');
+const Product = require("../models/productModel");
+const Cart = require("../models/cartModel");
 
 const calcTotalCartPrice = (cart) => {
   let totalPrice = 0;
@@ -27,12 +27,20 @@ exports.addProductToCart = asyncHandler(async (req, res, next) => {
     // create cart fot logged user with product
     cart = await Cart.create({
       user: req.body.userId,
-      cartItems: [{ product: productId, price: product.price }],
+      cartItems: [
+        {
+          product: productId,
+          price: product.price,
+          productName: product.productName,
+          isCourseOrBook: product.isCourseOrBook,
+          imageCover: product.imageCover,
+        },
+      ],
     });
   } else {
     // product exist in cart, update product quantity
     const productIndex = cart.cartItems.findIndex(
-      (item) => item.product.toString() === productId 
+      (item) => item.product.toString() === productId
     );
 
     if (productIndex > -1) {
@@ -42,7 +50,7 @@ exports.addProductToCart = asyncHandler(async (req, res, next) => {
       cart.cartItems[productIndex] = cartItem;
     } else {
       // product not exist in cart,  push product to cartItems array
-      cart.cartItems.push({ product: productId,  price: product.price });
+      cart.cartItems.push({ product: productId, price: product.price });
     }
   }
 
@@ -51,8 +59,8 @@ exports.addProductToCart = asyncHandler(async (req, res, next) => {
   await cart.save();
 
   res.status(200).json({
-    status: 'success',
-    message: 'Product added to cart successfully',
+    status: "success",
+    message: "Product added to cart successfully",
     numOfCartItems: cart.cartItems.length,
     data: cart,
   });
@@ -71,7 +79,7 @@ exports.getLoggedUserCart = asyncHandler(async (req, res, next) => {
   }
 
   res.status(200).json({
-    status: 'success',
+    status: "success",
     numOfCartItems: cart.cartItems.length,
     data: cart,
   });
@@ -93,7 +101,7 @@ exports.removeSpecificCartItem = asyncHandler(async (req, res, next) => {
   cart.save();
 
   res.status(200).json({
-    status: 'success',
+    status: "success",
     numOfCartItems: cart.cartItems.length,
     data: cart,
   });
@@ -136,9 +144,8 @@ exports.updateCartItemQuantity = asyncHandler(async (req, res, next) => {
   await cart.save();
 
   res.status(200).json({
-    status: 'success',
+    status: "success",
     numOfCartItems: cart.cartItems.length,
     data: cart,
   });
 });
-
