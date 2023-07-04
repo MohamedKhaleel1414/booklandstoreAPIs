@@ -112,7 +112,7 @@ exports.removeSpecificCartItem = asyncHandler(async (req, res, next) => {
 // @access  Private/User
 exports.clearCart = asyncHandler(async (req, res, next) => {
   await Cart.findOneAndDelete({ user: req.user._id });
-  res.status(204).send();
+  res.status(201).send([]);
 });
 
 // @desc    Update specific cart item quantity
