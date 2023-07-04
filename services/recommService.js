@@ -19,44 +19,48 @@ async function recommendations(req, res) {
     }
   });
 
-  usersID.map(async (usr, idx) => {
-    let user = await userModel.findById(usr);
-    if (user) {
-      allBoughtProductsID = [...data.bought_products];
-      allBoughtProductsID.map((item, index) => {
-        let products = productModel.findById(item);
-        if (products) {
-          if (products.field.toString() === groupField.toString()) {
-            usersBought.push(usr);
-            productMatch.push(item);
-            if (usersBought.length / usersID.length >= 0.25) {
-              productMatch.map(async (item, index) => {
-                let result = await productModel.findById(item);
-                if (result) {
-                  responseProduct.push(result);
-                } else {
-                  return res
-                    .status(404)
-                    .send(
-                      "Users didn't bought product matches with group interests."
-                    );
-                }
-              });
-            } else {
-              return res.status(404).send("No prefered products");
-            }
+  await Promise.all(
+    usersID.map(async (usr, idx) => {
+      await userModel.findById(usr).then((user) => {
+        if (user) {
+          if (user.bought_products.length !== 0) {
+            allBoughtProductsID = [...user.bought_products]
+            usersBought.push(usr)
+          }
+        } else {
+          return res.status(404).send("No users in this group");
+        }
+      });
+    })
+  );
+  await Promise.all(
+    allBoughtProductsID.map(async (item, index) => {
+      await productModel.findById(item).then((prods) => {
+        if (prods) {
+          if (prods.field.toString() === groupField.toString()) {
+            // usersBought.push(usr);
+            productMatch.push(prods);
           }
         } else {
           return res
             .status(404)
-            .send("Users didn't bought product matches with group interests.");
+            .send(
+              "Users didn't bought product matches with group interests."
+            );
         }
       });
-      return res.status(200).send(responseProduct);
-    } else {
-      return res.status(404).send("No users in this group");
-    }
-  });
+    })
+  )
+  
+
+
+  console.log(usersBought);
+  console.log(productMatch);
+  if (usersBought.length / usersID.length >= 0.25) {
+    return res.status(200).send(productMatch);
+  } else {
+    return res.status(404).send("No prefered products");
+  }
 
   // await Promise.all(
   //   usersID.map(async (usr, idx) => {
