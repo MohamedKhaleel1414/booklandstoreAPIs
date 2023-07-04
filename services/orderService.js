@@ -38,7 +38,7 @@ exports.createCashOrder = asyncHandler(async (req, res, next) => {
     productsID.push(item.product);
   });
   productsID.map((item)=>{
-    Product.findByIdAndUpdate(item,{$inc:{sold:1}}).then((data)=>{
+    Product.findByIdAndUpdate(item,{$inc:{sold:0}}).then((data)=>{
       console.log(data)
     }).catch((err)=>{
       console.log(err)

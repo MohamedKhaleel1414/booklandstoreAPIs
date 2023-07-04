@@ -3,7 +3,7 @@ const userModel = require("../models/userModel");
 const productModel = require("../models/productModel");
 
 async function recommendations(req, res) {
-  let groupField = [];
+  let groupField = "";
   let usersID = [];
   let allBoughtProductsID = [];
   let usersBought = [];
@@ -13,7 +13,7 @@ async function recommendations(req, res) {
   await groupModel.findById(req.body.groupId).then((data) => {
     if (data) {
       usersID = [...data.users_id];
-      groupField.push(data.field);
+      groupField=data.field
     } else {
       return res.status(404).send("Group not found");
     }
@@ -27,7 +27,7 @@ async function recommendations(req, res) {
           allBoughtProductsID.map((item, index) => {
             productModel.findById(item).then((dt) => {
               if (dt) {
-                if (dt.field.toString() === groupField[0].toString()) {
+                if (dt.field === groupField) {
                   usersBought.push(usr);
                   productMatch.push(item);
                 }
