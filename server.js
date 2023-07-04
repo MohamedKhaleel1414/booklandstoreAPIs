@@ -21,6 +21,7 @@ const groupRoute = require('./routes/groupRoute')
 const recommRoute = require('./routes/recommRoute')
 const reviewRoute = require('./routes/reviewRoute')
 const baseurl = require('./routes/baseUSL')
+const bestSellerRoute = require('./routes/bestSellerRoute')
 
 // Connect with db
 dbConnection();
@@ -68,6 +69,7 @@ mountRoutes(app);
 app.use('/groups',groupRoute)
 app.use("/recommendationsystem", recommRoute);
 app.use('/review',reviewRoute)
+app.use('/bestseller',bestSellerRoute)
 app.use('/',baseurl)
 
 app.all("*", (req, res, next) => {
