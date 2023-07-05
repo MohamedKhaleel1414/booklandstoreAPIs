@@ -50,7 +50,13 @@ exports.addProductToCart = asyncHandler(async (req, res, next) => {
       cart.cartItems[productIndex] = cartItem;
     } else {
       // product not exist in cart,  push product to cartItems array
-      cart.cartItems.push({ product: productId, price: product.price });
+      cart.cartItems.push({
+        product: productId,
+        price: product.price,
+        productName: product.productName,
+        isCourseOrBook: product.isCourseOrBook,
+        imageCover: product.imageCover,
+      });
     }
   }
 
