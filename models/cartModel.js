@@ -13,6 +13,9 @@ const cartSchema = new mongoose.Schema(
           default: 1,
         },
         price: Number,
+        productName: String,
+        isCourseOrBook: String,
+        imageCover: String
       },
     ],
     totalCartPrice: Number,
