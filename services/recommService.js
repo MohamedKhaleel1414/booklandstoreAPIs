@@ -8,7 +8,6 @@ async function recommendations(req, res) {
   let allBoughtProductsID = [];
   let usersBought = [];
   let productMatch = [];
-  let responseProduct = [];
 
   await groupModel.findById(req.body.groupId).then((data) => {
     if (data) {
@@ -33,12 +32,12 @@ async function recommendations(req, res) {
       });
     })
   );
+  
   await Promise.all(
     allBoughtProductsID.map(async (item, index) => {
       await productModel.findById(item).then((prods) => {
         if (prods) {
           if (prods.field.toString() === groupField.toString()) {
-            // usersBought.push(usr);
             productMatch.push(prods);
           }
         } else {
@@ -52,64 +51,12 @@ async function recommendations(req, res) {
     })
   )
   
-
-
-  console.log(usersBought);
-  console.log(productMatch);
   if (usersBought.length / usersID.length >= 0.25) {
     return res.status(200).send(productMatch);
   } else {
     return res.status(404).send("No prefered products");
   }
 
-  // await Promise.all(
-  //   usersID.map(async (usr, idx) => {
-  //     await userModel.findById(usr).then((data) => {
-  //       if (data) {
-  //         allBoughtProductsID = [...data.bought_products];
-  //         allBoughtProductsID.map((item, index) => {
-  //           productModel.findById(item).then((dt) => {
-  //             if (dt) {
-  //               if (dt.field.toString() === groupField.toString()) {
-  //                 usersBought.push(usr);
-  //                 productMatch.push(item);
-  //               }
-  //             } else {
-  //               return res
-  //                 .status(404)
-  //                 .send(
-  //                   "Users didn't bought product matches with group interests."
-  //                 );
-  //             }
-  //           });
-  //         });
-  //       } else {
-  //         return res.status(404).send("No users in this group");
-  //       }
-  //     });
-  //   })
-  // );
-
-  // if (usersBought.length / usersID.length >= 0.25) {
-  //   await Promise.all(
-  //     productMatch.map(async (item, idx) => {
-  //       await productModel.findById(item).then((data) => {
-  //         if (data) {
-  //           responseProduct.push(data);
-  //         } else {
-  //           return res
-  //             .status(404)
-  //             .send(
-  //               "Users didn't bought product matches with group interests."
-  //             );
-  //         }
-  //       });
-  //     })
-  //   );
-  //   return res.status(200).send(responseProduct);
-  // } else {
-  //   return res.status(404).send("No prefered products");
-  // }
 }
 
 module.exports = { recommendations };

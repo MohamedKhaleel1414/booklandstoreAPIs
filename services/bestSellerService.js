@@ -1,12 +1,21 @@
 const Product = require('../models/productModel')
 
-const bestSeller = async (req,res) => {
-    let bestProducts = await Product.find({},{}).sort({sold:-1}).limit(10)
+const bestSellerBooks = async (req,res) => {
+    let bestProducts = await Product.find({"isCourseOrBook":"Book"},{}).sort({sold:-1}).limit(4)
     if(bestProducts){
-        res.status(201).send(bestProducts)
+        res.status(200).send(bestProducts)
     }else{
-        res.status(404).send("No products found")
+        res.status(404).send("No books found")
     }
 }
 
-module.exports = {bestSeller}
+const bestSellerCourses = async (req,res)=>{
+    let bestProducts = await Product.find({"isCourseOrBook":"Course"},{}).sort({sold:-1}).limit(4)
+    if(bestProducts){
+        res.status(200).send(bestProducts)
+    }else{
+        res.status(404).send("No Courses found")
+    }
+}
+
+module.exports = {bestSellerBooks,bestSellerCourses}
