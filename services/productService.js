@@ -29,7 +29,7 @@ exports.resizeProductImages = asyncHandler(async (req, res, next) => {
     // Save image into our db
     req.body.imageCover = imageCoverFileName;
   }
-  
+  next()
 });
 
 // @desc    Get list of products
