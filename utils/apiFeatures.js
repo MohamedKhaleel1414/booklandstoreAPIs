@@ -44,21 +44,11 @@ class ApiFeatures {
         query.$or = [
           { productName: { $regex: this.queryString.keyword, $options: 'i' } },
           {authorName: { $regex: this.queryString.keyword, $options: 'i' } },
-          {isbn: { $regex: this.queryString.keyword, $options: 'i' } },
-          
-        ];
-      }else if (modelName === 'category') {
-        query.$or = [
-          { productName: { $regex: this.queryString.keyword, $options: 'i' } },
-          {authorName: { $regex: this.queryString.keyword, $options: 'i' } },
-          {isbn: { $regex: this.queryString.keyword, $options: 'i' } },
+          {description: { $regex: this.queryString.keyword, $options: 'i' } },
           
         ];
       }
-       else {
-        query = { name: { $regex: this.queryString.keyword, $options: 'i' } };
-      }
-
+      
       this.mongooseQuery = this.mongooseQuery.find(query);
     }
     return this;
