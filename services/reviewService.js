@@ -4,7 +4,7 @@ const Review = require('../models/reviewModel');
 // Show comments of a product: // Send in body(productId,type)
 // The type sent in body should be "Reply" or "Comment"
 const showComments = async (req,res) => {
-  let comments = await Review.find({product:req.body.productId,isCommentOrReply:req.body.type},{}).sort({posting_date:1})
+  let comments = await Review.find({product:req.params.productId,isCommentOrReply:req.params.type},{}).sort({posting_date:1})
   if(comments){
     res.status(200).send(comments)
   }else{
@@ -15,7 +15,7 @@ const showComments = async (req,res) => {
 // Show replies of a comment: // Send in body(commentId,type)
 // The type sent in body should be "Reply" or "Comment"
 const showReplies = async (req,res) => {
-  let comment = await Review.findById(req.body.commentId)
+  let comment = await Review.findById(req.params.commentId)
   if(comment){
     let replies = []
     await Promise.all(

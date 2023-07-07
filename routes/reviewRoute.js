@@ -2,8 +2,8 @@ const express = require('express');
 const reviewServices = require('../services/reviewService')
 const router = express.Router()
 
-router.get('/getcomments',reviewServices.showComments)
-router.get('/getreplies',reviewServices.showReplies)
+router.get('/getcomments/:productId/:type',reviewServices.showComments)
+router.get('/getreplies/:commentId',reviewServices.showReplies)
 router.post('/addcomment',reviewServices.addComment)
 router.post('/addreply',reviewServices.addReply)
 router.patch('/updatecomment',reviewServices.updateComment)
